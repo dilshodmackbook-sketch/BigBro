@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="color-scheme" content="light only">
+  <title>Big Bro · Navbat</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Unbounded:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css?v=2">
+</head>
+<body>
+  <div id="loader" class="loader">
+    <div class="mark"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.1 15.9M14.5 14.5L20 20M8.1 8.1L12 12"/></svg></div>
+    <div class="spinner"></div>
+  </div>
+
+  <div id="gate" class="gate" hidden>
+    <div class="mark big"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.1 15.9M14.5 14.5L20 20M8.1 8.1L12 12"/></svg></div>
+    <h2>Telegram orqali oching</h2>
+    <p>Navbat olish uchun ilovani Telegram botimiz orqali oching.</p>
+    <a class="btn" id="gate-link" href="#">Botga o'tish</a>
+  </div>
+
+  <div id="app" hidden>
+    <header class="hero">
+      <div class="hero-pole" aria-hidden="true"></div>
+      <div class="hero-top">
+        <div class="mark"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.1 15.9M14.5 14.5L20 20M8.1 8.1L12 12"/></svg></div>
+        <span class="status" id="status"><i></i><span></span></span>
+      </div>
+      <div class="hero-name" id="shop-name">BIG BRO</div>
+      <div class="hero-sub">Barbershop <span>·</span> Onlayn navbat</div>
+    </header>
+
+    <div class="seg" id="tabs" hidden>
+      <button data-tab="book" class="on">Navbat olish</button>
+      <button data-tab="staff">Panel</button>
+    </div>
+
+    <main id="view-book">
+      <section id="mine" hidden></section>
+
+      <div id="form">
+        <section class="card block">
+          <h2 class="h"><span class="n">1</span>Usta</h2>
+          <div class="barbers" id="barbers"></div>
+        </section>
+
+        <section class="card block">
+          <h2 class="h"><span class="n">2</span>Kun<span class="h-note" id="day-note"></span></h2>
+          <div class="days scroller" id="days"></div>
+        </section>
+
+        <section class="card block">
+          <h2 class="h"><span class="n">3</span>Vaqt<span class="h-note" id="dur-note"></span></h2>
+          <div id="slots"></div>
+        </section>
+
+        <section class="card block" id="contact">
+          <h2 class="h"><span class="n">4</span>Ma'lumotlaringiz</h2>
+          <div class="fields">
+            <div class="field">
+              <span class="f-ic"><svg viewBox="0 0 24 24"><path d="M21 3L10 14"/><path d="M21 3l-7 18-4-7-7-4z"/></svg></span>
+              <span class="f-body"><span class="lbl">Telegram</span><span class="val" id="tg-user"></span></span>
+              <span class="f-tag">Avto</span>
+            </div>
+            <label class="field">
+              <span class="f-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg></span>
+              <span class="f-body"><span class="lbl">Ism</span><input id="name" autocomplete="given-name" maxlength="40" placeholder="Ismingiz"></span>
+            </label>
+            <div class="field" id="phone-field">
+              <span class="f-ic"><svg viewBox="0 0 24 24"><path d="M6.6 3.5h2.6l1.4 4-2 1.4a12 12 0 006.5 6.5l1.4-2 4 1.4v2.6a2 2 0 01-2.2 2A17 17 0 014.6 5.7a2 2 0 012-2.2z"/></svg></span>
+              <span class="f-body"><span class="lbl">Telefon</span><input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+998 90 123 45 67"></span>
+              <button class="chip-btn" id="share" type="button"></button>
+            </div>
+          </div>
+          <p class="note">Raqamingizni faqat usta ko'radi. Reja o'zgarsa, siz bilan bog'lanish uchun kerak.</p>
+        </section>
+      </div>
+    </main>
+
+    <main id="view-staff" hidden>
+      <section class="card block">
+        <div class="days scroller" id="s-days"></div>
+        <div class="seg inner" id="s-barbers"></div>
+        <div class="stats" id="s-stats"></div>
+      </section>
+      <section class="card list-card" id="s-list"></section>
+    </main>
+
+    <div class="cta" id="cta" hidden>
+      <button class="btn cta-btn" id="book-btn" disabled></button>
+    </div>
+  </div>
+
+  <div class="overlay" id="done" hidden>
+    <div class="sheet">
+      <div class="done-icon"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+      <h3>Navbatga yozildingiz!</h3>
+      <p class="muted" id="done-sub">Sizni kutamiz.</p>
+      <div class="ticket light" id="done-ticket"></div>
+      <button class="btn" id="done-ok">Tayyor</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="/static/app.js?v=2"></script>
+</body>
+</html>
